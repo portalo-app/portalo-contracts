@@ -9,8 +9,8 @@ interface IVerifier {
 contract Portalo {
 
     struct Profile {
-        uint8 profileId;
-        uint8 nonce;
+        string profileId;
+        string nonce;
         string profileEncryptionKey;
         string encryptedData;
         bool isPublic;
@@ -18,8 +18,8 @@ contract Portalo {
 
     IVerifier verifier;
 
-    mapping(address => uint8[]) public profileIdsByOwners;
-    mapping(uint8 => Profile) public profileByProfileId;
+    mapping(address => string[]) public profileIdsByOwners;
+    mapping(string => Profile) public profileByProfileId;
 
     constructor(address _verifierAddress) {
         verifier = IVerifier(_verifierAddress);
@@ -38,5 +38,13 @@ contract Portalo {
   
     function _verifyProof(bytes memory proof, bytes32[] memory publicInput) internal view {
         require(verifier.verify(proof, publicInput), "Invalid proof");
+    }
+
+    function getProfileIdsByOwner() external view returns (string[] memory) {
+        return profileIdsByOwners[msg.sender];
+    }
+
+    function getProfileById(string memory profileId) external view returns (Profile memory) {
+        return profileByProfileId[profileId];
     }
 }
