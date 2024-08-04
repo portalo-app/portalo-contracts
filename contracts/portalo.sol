@@ -27,7 +27,7 @@ contract Portalo {
         verifier = IVerifier(_verifierAddress);
     }
 
-    function saveProfile(Profile memory profile, bytes memory _proof, bytes32[] memory publicInput, bool isEditing) external payable {
+    function saveProfile(Profile memory profile, bytes memory _proof, bytes32[] memory publicInput, bool isEditing) external {
         _verifyProof(_proof, publicInput);
 
         if (!isEditing) {
