@@ -1,66 +1,57 @@
-## Foundry
+# Portalo
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+All-in-one solution to organize your life through private data storage 🪄📁
 
-Foundry consists of:
+Portalo leverages blockchain technology to ensure you own your data while allowing you to safely share the data with anyone you want.
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## Content 
 
-## Documentation
+This repository contains all the Smart Contracts and ZK circuits used by Portalo to ensure the privacy of the user data. 
 
-https://book.getfoundry.sh/
+### Circuits
 
-## Usage
+- Ownership Circuit: Validates if a wallet is the owner of a Portalo profile.
 
-### Build
+### Smart Contracts
 
-```shell
-$ forge build
+- Circuit Contract: Solidity Smart Contract as the Ownership circuit verifier.
+- Portalo Contract: Main Portalo Smart Contract, that manages the profile's access and modifications. 
+
+## How to
+
+### Portalo Smart Contract
+
+**Deploy**
+- Deploy the Circuit Verifier Contrat before.
+- Deploy the Portalo Smart Contract and initialize it with the Circuit Verifier Contract address.
+
+### Noir ZK Circuit
+
+**Installation**
+- `Noir`: [Noir official guide](https://noir-lang.org/docs/getting_started/installation/)
+- `bb`: https://github.com/AztecProtocol/aztec-packages/blob/master/barretenberg/cpp/src/barretenberg/bb/readme.md#installation
+
+**Create new project**
+```bash
+nargo new <PROJECT_NAME>
+cd <PROJECT_NAME>
+nargo check
 ```
 
-### Test
-
-```shell
-$ forge test
+**Check the proof**
+1. Put the inputs in `Prover.toml`
+2. Generate the proof:
+```bash
+nargo execute
 ```
 
-### Format
-
-```shell
-$ forge fmt
+**Compile**
+```bash
+nargo compile
 ```
 
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+**Generate Solidity Verifier Smart Contract**
+```bash
+bb write_vk -b ./target/<noir_artifact_name>.json
+bb contract
 ```
