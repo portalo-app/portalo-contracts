@@ -55,3 +55,7 @@ nargo compile
 bb write_vk -b ./target/<noir_artifact_name>.json
 bb contract
 ```
+
+## Contact
+
+For any inquiries, please contact us at [contact@neopower.digital](mailto:contact@neopower.digital).
