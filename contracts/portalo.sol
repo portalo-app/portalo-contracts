@@ -40,8 +40,8 @@ contract Portalo {
         require(verifier.verify(proof, publicInput), "Invalid proof");
     }
 
-    function getProfileIdsByOwner() external view returns (string[] memory) {
-        return profileIdsByOwners[msg.sender];
+    function getProfileIdsByOwner(address owner) external view returns (string[] memory) {
+        return profileIdsByOwners[owner];
     }
 
     function getProfileById(string memory profileId) external view returns (Profile memory) {
